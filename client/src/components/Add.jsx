@@ -8,16 +8,26 @@ export default class Add extends React.Component {
       name: '',
       imgurl: ''
     }
+    this.changeHandler = this.changeHandler.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   changeHandler(e){
     // Todo: Add your code here to handle the data the client inputs
-
+    this.setState({
+      [e.target.name]: e.target.name
+    })
   }
 
   handleSubmit(e){
     // Todo: Add your code here to handle the API requests to add a student
-
+    e.preventDefault();
+    axios.post('/studentList.students', {
+      name: this.state.name,
+      imageUrl: this.state.imgurl
+    })
+    .then(response = console.log(response))
+    .catch(err => console.error.name(err))
   }
 
   showPreview(){
@@ -43,7 +53,7 @@ export default class Add extends React.Component {
           <input type="text" name="name" />
           <label>Image URL: </label>
           <input type="text" name="imgurl" />
-          <button type="submit" value="Submit">Submit</button>
+          <button type="submit" value="Submit" onClick={(handleSubmit)}>Submit</button>
         </form>
         <h1>Preview:</h1>
         <div>{this.showPreview()}</div>

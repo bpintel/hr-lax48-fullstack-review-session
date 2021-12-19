@@ -22,7 +22,9 @@ const controller = {
   },
   //delete
   deleteStudent: (req, res) => {
-
+    Student.deleteOne({_id: req.params.id})
+    .then(() => res.status(200).send(console.log('Student Deleted.')))
+    .catch(err => res.status(404).send(err))
   }
 }
 

@@ -6,6 +6,6 @@ router.route('/students')
     .post(controller.createStudent)
 router.route('/students/:id')
     .put(controller.updateStudent)
-    //.delete
+    .delete(controller.deleteStudent)
 
 module.exports = router;

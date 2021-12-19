@@ -1,11 +1,12 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       page: 'home',
-      studentlist : []
+      studentList : []
     }
   }
 
@@ -16,7 +17,13 @@ export default class App extends React.Component {
 
   getStudents(){
     // Todo: Add your code here to retrieve all students from the database
-
+    axios.get('/api/students')
+    .then((results) => {
+      this.setState({
+         studentList: results.data
+      })
+    })
+    .catch(err => console.log(err))
   }
 
   changepage(e){

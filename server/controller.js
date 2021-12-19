@@ -9,7 +9,9 @@ const controller = {
   },
   //create
   createStudent: (req, res) => {
-
+    console.log(req.body)
+    Student.create({ name: req.body.name, imageUrl: req.body.imageUrl})
+    .then(() => res.status(201).send(console.log(`${req.body.name} created.`)))
   },
   //update
   updateStudent: (req, res) => {

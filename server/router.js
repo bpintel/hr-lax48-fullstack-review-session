@@ -3,7 +3,7 @@ const controller = require('./controller.js');
 
 router.route('/students')
     .get(controller.getStudents)
-    //.post
+    .post(controller.createStudent)
 router.route('/students/:id')
     .put(controller.updateStudent)
     //.delete

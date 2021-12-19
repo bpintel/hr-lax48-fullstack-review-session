@@ -7,3 +7,11 @@ const db = mongoose.connect(mongoUri, {
 });
 
 module.exports = db;
+
+
+//require mongoose
+//create a uri to store tha DB
+
+//assign const db to a connected DB with uri as first arg and anything else in an obj as second arg
+
+//export connected db

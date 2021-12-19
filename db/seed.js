@@ -47,3 +47,5 @@ const insertSampleData = function() {
 };
 
 insertSampleData();
+
+//run this function with node to seed DB

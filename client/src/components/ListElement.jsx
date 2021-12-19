@@ -1,10 +1,69 @@
 import React from 'react';
+import axios from 'axios';
 
-const ListElement = () =>
-  <span>
-    <div>Julian</div>
-    <img src='https://ca.slack-edge.com/T02DNK3PH-UD0AF2EBH-73605fa7261b-512'></img>
-  </span>
+class ListElement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false,
+      input: ''
+    }
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.updateName= this.updateName.bind(this);
+  }
+
+  //function to toggle edit mode
+  toggleEdit() {
+    this.setState({
+      editMode: !this.state.editMode
+    })
+  }
+
+  //function to handle input
+  handleChange(e) {
+    this.setState({
+      input: e.target.value
+    })
+  }
+  
+  //function to update a students name (axios.put)
+  updateName() {
+    axios.put(`/api/students/${this.props.student._id}`, {
+      name: this.state.input
+    })
+    .then(() => this.props.getStudents())
+    .catch((err) => console.log(err))
+  }
+
+  //function to conditionally render edit mode
+  editMode() {
+    if (this.state.editMode) {
+      return (
+        <div>
+          <div>
+            <input onChange={this.handleChange}></input>
+          </div>
+          <span>
+            <button onClick={this.toggleEdit}>Cancel</button>
+            <button onClick={this.updateName}>Update</button>
+          </span>
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <span>
+        <div onClick={this.toggleEdit}>{this.props.student.name}</div>
+        {this.editMode()}
+        <img src={this.props.student.imageUrl}></img>
+      </span>
+    )
+  }
+}
+
 
 
 export default ListElement

@@ -40,3 +40,9 @@ const sampleData = [
   }
 ];
 
+const insertSampleData = () => {
+  Student.insertMany(sampleData)
+  .catch(err => console.log(err))
+  .then(() => mongoose.connection.close())
+}
+insertSampleData();

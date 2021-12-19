@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 
 class ListElement extends React.Component {
@@ -11,6 +12,7 @@ class ListElement extends React.Component {
     //bind
     this.editModeToggle = this.editModeToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.updateStudent = this.updateStudent.bind(this);
   }
 
   editModeToggle() {
@@ -23,6 +25,13 @@ class ListElement extends React.Component {
     this.setState({
       input: e.target.value
     })
+  }
+  updateStudent() {
+    axios.put(`/api/students/${this.props.student._id}`, {
+      name: this.state.input
+    })
+    .then(() => this.props.getStudents())
+    .catch(err => console.log(err))
   }
 
   
@@ -39,7 +48,7 @@ class ListElement extends React.Component {
         </div>
         <span>
           <button onClick={this.editModeToggle}>Cancel</button>
-          <button>Update</button>
+          <button onClick={this.updateStudent}>Update</button>
         </span>
       </div>
       

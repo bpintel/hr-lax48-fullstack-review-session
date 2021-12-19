@@ -12,6 +12,7 @@ export default class App extends React.Component {
       studentList : []
     }
     this.changePage = this.changePage.bind(this);
+    this.getStudents = this.getStudents.bind(this);
   }
 
   componentDidMount(){
@@ -24,7 +25,7 @@ export default class App extends React.Component {
     axios.get('/api/students')
     .then((results) => {
       this.setState({
-         studentList: results.data
+        studentList: results.data
       })
     })
     .catch(err => console.log(err))
@@ -47,7 +48,7 @@ export default class App extends React.Component {
       return (
         <div>
           <button value='home' onClick={this.changePage}>Back</button>
-          <List students={this.state.studentList}/>
+          <List students={this.state.studentList} getStudents={this.getStudents}/>
         </div>
       )
     } else if (this.state.page === 'random'){

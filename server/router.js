@@ -5,7 +5,7 @@ router.route('/students')
     .get(controller.getStudents)
     //.post
 router.route('/students/:id')
-    //.put
+    .put(controller.updateStudent)
     //.delete
 
 module.exports = router;

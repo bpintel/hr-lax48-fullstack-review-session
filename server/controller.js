@@ -5,7 +5,7 @@ const controller = {
   getStudents: (req, res) => {
     Student.find({})
     .then((results) => res.status(200).send(results))
-    .catch(err => console.log(err))
+    .catch(err => res.status(404).send(err))
   },
   //create
   createStudent: (req, res) => {
@@ -13,7 +13,9 @@ const controller = {
   },
   //update
   updateStudent: (req, res) => {
-
+    Student.updateOne({_id: req.params.id}, {name: req.body.name})
+    .then(() => res.status(200).send(console.log(`Student's name changed to "${req.body.name}".`)))
+    .catch(err => res.status(404).send(err))
   },
   //delete
   deleteStudent: (req, res) => {

@@ -11,6 +11,8 @@ class ListElement extends React.Component {
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateName= this.updateName.bind(this);
+    this.deleteStudent= this.deleteStudent.bind(this);
+
   }
 
   //function to toggle edit mode
@@ -36,6 +38,16 @@ class ListElement extends React.Component {
     .catch((err) => console.log(err))
   }
 
+  // delete a student
+  deleteStudent() {
+    axios.delete(`/api/students/${this.props.student._id}`)
+    .then(() => {
+      alert(`${this.props.student.name} deleted.`)
+      this.props.getStudents()
+    })
+    .catch(err => console.log(err))
+  }
+
   //function to conditionally render edit mode
   editMode() {
     if (this.state.editMode) {
@@ -47,6 +59,8 @@ class ListElement extends React.Component {
           <span>
             <button onClick={this.toggleEdit}>Cancel</button>
             <button onClick={this.updateName}>Update</button>
+            <button onClick={this.deleteStudent}>Delete Student</button>
+
           </span>
         </div>
       )

@@ -6,25 +6,44 @@ export default class Add extends React.Component {
     super(props)
     this.state = {
       name: '',
-      imgurl: ''
+      url: ''
     }
+    this.changeHandler = this.changeHandler.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   changeHandler(e){
     // Todo: Add your code here to handle the data the client inputs
-
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   handleSubmit(e){
     // Todo: Add your code here to handle the API requests to add a student
-
+    e.preventDefault()
+    axios.post('/api/students', {
+      name: this.state.name,
+      imageUrl: this.state.url
+    })
+    .then(() =>{
+      alert(`${this.state.name} added.`)
+      this.setState({
+        name: '',
+        url: ''
+      })
+    })
+    .catch(err => console.log(err))
   }
+    
+      
+      
 
   showPreview(){
     return (
-      (this.state.name && this.state.imgurl) ? (
+      (this.state.name && this.state.url) ? (
         <div>
-          <img src={this.state.imgurl}></img>
+          <img src={this.state.url}></img>
           <h2>{this.state.name}</h2>
         </div>
       ) : (
@@ -40,10 +59,10 @@ export default class Add extends React.Component {
       <div>
         <form>
           <label>Student Name: </label>
-          <input type="text" name="name" />
+          <input type="text" name="name" value={this.state.name} onChange={this.changeHandler}/>
           <label>Image URL: </label>
-          <input type="text" name="imgurl" />
-          <button type="submit" value="Submit">Submit</button>
+          <input type="text" name="url" value={this.state.url} onChange={this.changeHandler}/>
+          <button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</button>
         </form>
         <h1>Preview:</h1>
         <div>{this.showPreview()}</div>

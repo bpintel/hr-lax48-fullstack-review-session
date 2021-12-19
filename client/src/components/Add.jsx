@@ -66,7 +66,7 @@ export default class Add extends React.Component {
           <button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</button>
         </form>
         <h1>Preview:</h1>
-        <div>{this.showPreview()}</div>
+        {this.showPreview()}
       </div>
     )
   }

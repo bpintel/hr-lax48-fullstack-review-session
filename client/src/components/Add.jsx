@@ -32,6 +32,7 @@ export default class Add extends React.Component {
         name: '',
         url: ''
       })
+      this.props.getStudents()
     })
     .catch(err => console.log(err))
   }

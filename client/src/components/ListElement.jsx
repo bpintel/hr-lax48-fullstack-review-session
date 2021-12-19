@@ -40,12 +40,16 @@ class ListElement extends React.Component {
 
   // delete a student
   deleteStudent() {
-    axios.delete(`/api/students/${this.props.student._id}`)
-    .then(() => {
-      alert(`${this.props.student.name} deleted.`)
-      this.props.getStudents()
-    })
-    .catch(err => console.log(err))
+    if (confirm(`Are you sure you want to delete ${this.props.student.name}`)) {
+      axios.delete(`/api/students/${this.props.student._id}`)
+      .then(() => {
+        alert(`${this.props.student.name} deleted.`)
+        this.props.getStudents()
+      })
+      .catch(err => console.log(err))
+    } else {
+      alert(`Did not delete ${this.props.student.name}.`)
+    }
   }
 
   //function to conditionally render edit mode

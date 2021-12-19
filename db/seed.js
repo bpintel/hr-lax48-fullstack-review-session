@@ -40,10 +40,3 @@ const sampleData = [
   }
 ];
 
-const insertSampleData = function() {
-  Student.insertMany(sampleData)
-    .catch(err => console.log(`Error inserting data: ${err}`))
-    .then(() => mongoose.connection.close())
-};
-
-insertSampleData();
